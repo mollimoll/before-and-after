@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Input, ImageData } from './components/Input';
+import { Images } from './components/Images';
+import { useState } from 'react';
+import styled from 'styled-components';
 
-function App() {
+const StyledBody = styled.body`
+  max-width: 1200px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+`;
+
+const App = () => {
+  const [images, setImages] = useState([] as ImageData[]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StyledBody>
+        <Input onChange={setImages} />
+        <Images images={images} />
+      </StyledBody>
     </div>
   );
-}
+};
 
 export default App;
