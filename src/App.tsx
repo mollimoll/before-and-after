@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { DropZone } from './components/DropZone';
 
 const StyledBody = styled.div`
-  max-width: 1200px;
+  /* max-width: 1200px; */
   display: block;
   margin: 0 auto;
   text-align: center;

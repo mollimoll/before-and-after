@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import styled from 'styled-components';
 
 const getArrayOfMarkdownLinks = (textInput: string) =>
   textInput
@@ -27,6 +28,10 @@ type Props = {
   onChange: Dispatch<SetStateAction<ImageData[]>>;
 };
 
+const TextArea = styled.textarea`
+  margin: 30px;
+`;
+
 export const Input = ({ onChange }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const imageData = extractNamesAndUrls(e.target.value);
@@ -34,5 +39,5 @@ export const Input = ({ onChange }: Props) => {
     onChange(imageData);
   };
 
-  return <textarea rows={4} cols={50} onChange={handleChange}></textarea>;
+  return <TextArea rows={8} cols={150} onChange={handleChange} />;
 };

@@ -22,7 +22,7 @@ export const Images = ({ images }: Props) => {
   return (
     <ImagesContainer>
       {images.map(({ imageName, url }) => (
-        <StyledImg key={url} alt={imageName} src={url} />
+        <StyledImg key={url} alt={imageName} src={url} id={url} />
       ))}
     </ImagesContainer>
   );
