@@ -31,8 +31,6 @@ export const Input = ({ onChange }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const imageData = extractNamesAndUrls(e.target.value);
 
-    console.log(e.target.value);
-    console.log(imageData);
     onChange(imageData);
   };
 

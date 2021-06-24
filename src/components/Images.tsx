@@ -14,7 +14,7 @@ const ImagesContainer = styled.div`
 
 const StyledImg = styled.img`
   margin: 16px;
-  max-height: 50vh;
+  max-height: 30vh;
   vertical-align: bottom;
 `;
 
