@@ -19,6 +19,17 @@ const extractNamesAndUrls = (inputText: string): ImageData[] =>
     url: getTextInFinalParentheses(text),
   }));
 
+const TextArea = styled.textarea`
+  font-size: inherit;
+  font-family: inherit;
+  margin: 30px;
+  width: 80vw;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #000000;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+`;
+
 export type ImageData = {
   imageName: string;
   url: string;
@@ -28,10 +39,6 @@ type Props = {
   onChange: Dispatch<SetStateAction<ImageData[]>>;
 };
 
-const TextArea = styled.textarea`
-  margin: 30px;
-`;
-
 export const Input = ({ onChange }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const imageData = extractNamesAndUrls(e.target.value);
@@ -39,5 +46,5 @@ export const Input = ({ onChange }: Props) => {
     onChange(imageData);
   };
 
-  return <TextArea rows={8} cols={150} onChange={handleChange} />;
+  return <TextArea onChange={handleChange} />;
 };
