@@ -22,12 +22,16 @@ const extractNamesAndUrls = (inputText: string): ImageData[] =>
 const TextArea = styled.textarea`
   font-size: inherit;
   font-family: inherit;
-  margin: 30px;
-  width: 80vw;
+  width: 100%;
   padding: 0.35em 1.2em;
   border: 0.1em solid #000000;
-  margin: 0 0.3em 0.3em 0;
+  margin: 0.3em 0;
   border-radius: 0.12em;
+`;
+
+const StyledContainer = styled.div`
+  display: flex;
+  width: 100%;
 `;
 
 export type ImageData = {
@@ -46,5 +50,9 @@ export const Input = ({ onChange }: Props) => {
     onChange(imageData);
   };
 
-  return <TextArea onChange={handleChange} />;
+  return (
+    <StyledContainer>
+      <TextArea onChange={handleChange} />
+    </StyledContainer>
+  );
 };

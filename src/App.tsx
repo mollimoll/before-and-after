@@ -3,12 +3,18 @@ import { Images } from './components/Images';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { DropZone } from './components/DropZone';
+// import './skeleton.css';
+// import './normalize.css';
 
 const StyledBody = styled.div`
-  /* max-width: 1200px; */
+  max-width: 80%;
   display: block;
   margin: 0 auto;
   text-align: center;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 const DragAndDropContainer = styled.div`
