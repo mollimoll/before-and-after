@@ -1,7 +1,7 @@
-import { useReducer, useState } from 'react';
+import { Dispatch, SetStateAction, useReducer } from 'react';
 import styled from 'styled-components';
-import { Button } from './Button';
 import { createMarkdownTable } from '../utils/table';
+import { Button } from './Button';
 
 const ADD_BEFORE_IMG = 'ADD_BEFORE_IMG';
 const ADD_AFTER_IMG = 'ADD_AFTER_IMG';
@@ -87,10 +87,12 @@ const reducer = (state, action) => {
   }
 };
 
-export const DropZone = () => {
+type Props = {
+  onButtonClick: Dispatch<SetStateAction<string>>;
+};
+
+export const DropZone = ({ onButtonClick }: Props) => {
   const [data, dispatch] = useReducer(reducer, dummyCellData);
-  const [output, setOutput] = useState('');
-  console.log(output);
 
   const headerRow = ['Device', 'Before', 'After'];
   return (
@@ -98,7 +100,7 @@ export const DropZone = () => {
       <Button
         handleClick={() => {
           console.log('clicked');
-          setOutput(createMarkdownTable(data));
+          onButtonClick(createMarkdownTable(data));
         }}
       >
         Export Markdown
@@ -125,7 +127,6 @@ export const DropZone = () => {
             </>
           );
         })}
-        <textarea value={output} />
       </Container>
     </>
   );

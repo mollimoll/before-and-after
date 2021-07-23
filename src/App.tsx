@@ -1,4 +1,5 @@
-import { Input, ImageData } from './components/Input';
+import { Input } from './components/Input';
+import { extractNamesAndUrls, ImageData } from './utils/parsing';
 import { Images } from './components/Images';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -17,29 +18,41 @@ const StyledBody = styled.div`
   }
 `;
 
-const DragAndDropContainer = styled.div`
+const Row = styled.div`
   display: flex;
 `;
 
-const DragAndDropCol = styled.div`
+const Col = styled.div`
   flex: 1;
 `;
 
 const App = () => {
   const [images, setImages] = useState([] as ImageData[]);
+  const [output, setOutput] = useState('');
+
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setImages(extractNamesAndUrls(e.target.value));
+  };
 
   return (
     <div className="App">
       <StyledBody>
-        <Input onChange={setImages} />
-        <DragAndDropContainer>
-          <DragAndDropCol>
+        <Row>
+          <Col>
+            <Input onChange={handleInput} />
+          </Col>
+          <Col>
+            <Input value={output} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <Images images={images} />
-          </DragAndDropCol>
-          <DragAndDropCol>
-            <DropZone />
-          </DragAndDropCol>
-        </DragAndDropContainer>
+          </Col>
+          <Col>
+            <DropZone onButtonClick={setOutput} />
+          </Col>
+        </Row>
       </StyledBody>
     </div>
   );

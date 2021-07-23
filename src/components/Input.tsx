@@ -1,23 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
-
-const getArrayOfMarkdownLinks = (textInput: string) =>
-  textInput
-    .split('!')
-    .map((text) => text.trim())
-    .filter((text) => text);
-
-const getTextInBrackets = (item: string) =>
-  item.slice(item.indexOf('[') + 1, item.lastIndexOf(']'));
-
-const getTextInFinalParentheses = (item: string) =>
-  item.slice(item.lastIndexOf('(') + 1, item.lastIndexOf(')'));
-
-const extractNamesAndUrls = (inputText: string): ImageData[] =>
-  getArrayOfMarkdownLinks(inputText).map((text) => ({
-    imageName: getTextInBrackets(text),
-    url: getTextInFinalParentheses(text),
-  }));
 
 const TextArea = styled.textarea`
   font-size: inherit;
@@ -34,25 +15,15 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-export type ImageData = {
-  imageName: string;
-  url: string;
-};
-
 type Props = {
-  onChange: Dispatch<SetStateAction<ImageData[]>>;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  value?: string;
 };
 
-export const Input = ({ onChange }: Props) => {
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const imageData = extractNamesAndUrls(e.target.value);
-
-    onChange(imageData);
-  };
-
+export const Input = ({ onChange, value }: Props) => {
   return (
     <StyledContainer>
-      <TextArea onChange={handleChange} />
+      <TextArea onChange={onChange} value={value} />
     </StyledContainer>
   );
 };

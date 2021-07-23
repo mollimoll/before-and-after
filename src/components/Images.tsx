@@ -1,4 +1,4 @@
-import { ImageData } from './Input';
+import { ImageData } from '../utils/parsing';
 import styled from 'styled-components';
 
 type Props = {
