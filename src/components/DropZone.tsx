@@ -1,6 +1,7 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from './Button';
+import { createMarkdownTable } from '../utils/table';
 
 const ADD_BEFORE_IMG = 'ADD_BEFORE_IMG';
 const ADD_AFTER_IMG = 'ADD_AFTER_IMG';
@@ -88,12 +89,20 @@ const reducer = (state, action) => {
 
 export const DropZone = () => {
   const [data, dispatch] = useReducer(reducer, dummyCellData);
-  console.log(data);
+  const [output, setOutput] = useState('');
+  console.log(output);
 
   const headerRow = ['Device', 'Before', 'After'];
   return (
     <>
-      <Button handleClick={() => console.log(data)}>Export Markdown</Button>
+      <Button
+        handleClick={() => {
+          console.log('clicked');
+          setOutput(createMarkdownTable(data));
+        }}
+      >
+        Export Markdown
+      </Button>
       <Container>
         {headerRow.map((name) => (
           <Cell name={name}>
@@ -116,6 +125,7 @@ export const DropZone = () => {
             </>
           );
         })}
+        <textarea value={output} />
       </Container>
     </>
   );
