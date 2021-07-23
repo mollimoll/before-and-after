@@ -1,28 +1,24 @@
 import { Dispatch, SetStateAction, useReducer } from 'react';
 import styled from 'styled-components';
+import { ImageData } from '../utils/parsing';
 import { createMarkdownTable } from '../utils/table';
 import { Button } from './Button';
+import { Col, Row } from './Grid';
+import { Images } from './Images';
 
 const ADD_BEFORE_IMG = 'ADD_BEFORE_IMG';
 const ADD_AFTER_IMG = 'ADD_AFTER_IMG';
 
-const Container = styled.div`
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
 const StyledCell = styled.div`
-  width: 32%;
-  padding-bottom: 18%;
-  margin-bottom: 2%;
+  flex: 1;
   background-color: aliceblue;
+  margin: 4px;
+  padding: 4px;
 `;
 
 const StyledImg = styled.img`
-  margin: 16px;
-  max-height: 30vh;
+  box-sizing: border-box;
+  max-width: 100%;
   vertical-align: bottom;
 `;
 
@@ -89,45 +85,61 @@ const reducer = (state, action) => {
 
 type Props = {
   onButtonClick: Dispatch<SetStateAction<string>>;
+  images: ImageData[];
 };
 
-export const DropZone = ({ onButtonClick }: Props) => {
+export const DropZone = ({ onButtonClick, images }: Props) => {
   const [data, dispatch] = useReducer(reducer, dummyCellData);
 
-  const headerRow = ['Device', 'Before', 'After'];
   return (
     <>
-      <Button
-        handleClick={() => {
-          console.log('clicked');
-          onButtonClick(createMarkdownTable(data));
-        }}
-      >
-        Export Markdown
-      </Button>
-      <Container>
+      <Row>
+        <Col>
+          <Button handleClick={() => onButtonClick(createMarkdownTable(data))}>
+            Export Markdown
+          </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Images images={images} />
+        </Col>
+        <Col>
+          <DropTable data={data} dispatch={dispatch} />
+        </Col>
+      </Row>
+    </>
+  );
+};
+
+export const DropTable = ({ data, dispatch }) => {
+  const headerRow = ['Device', 'Before', 'After'];
+
+  return (
+    <>
+      <Row>
         {headerRow.map((name) => (
           <Cell name={name}>
             <strong>{name}</strong>
           </Cell>
         ))}
-        {Object.keys(data).map((key) => {
-          const { beforeImg, afterImg } = data[key];
-          return (
-            <>
-              <Cell name={key}>
-                <p>{key}</p>
-              </Cell>
-              <Cell name={key} dispatch={dispatch} action={ADD_BEFORE_IMG}>
-                <StyledImg key={beforeImg} src={beforeImg} id={beforeImg} />
-              </Cell>
-              <Cell name={key} dispatch={dispatch} action={ADD_AFTER_IMG}>
-                <StyledImg key={afterImg} src={afterImg} id={afterImg} />
-              </Cell>
-            </>
-          );
-        })}
-      </Container>
+      </Row>
+      {Object.keys(data).map((key) => {
+        const { beforeImg, afterImg } = data[key];
+        return (
+          <Row key={key}>
+            <Cell name={key}>
+              <p>{key}</p>
+            </Cell>
+            <Cell name={key} dispatch={dispatch} action={ADD_BEFORE_IMG}>
+              <StyledImg key={beforeImg} src={beforeImg} id={beforeImg} />
+            </Cell>
+            <Cell name={key} dispatch={dispatch} action={ADD_AFTER_IMG}>
+              <StyledImg key={afterImg} src={afterImg} id={afterImg} />
+            </Cell>
+          </Row>
+        );
+      })}
     </>
   );
 };

@@ -1,9 +1,9 @@
-import { Input } from './components/Input';
-import { extractNamesAndUrls, ImageData } from './utils/parsing';
-import { Images } from './components/Images';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { DropZone } from './components/DropZone';
+import { Col, Row } from './components/Grid';
+import { Input } from './components/Input';
+import { extractNamesAndUrls, ImageData } from './utils/parsing';
 // import './skeleton.css';
 // import './normalize.css';
 
@@ -16,14 +16,6 @@ const StyledBody = styled.div`
   @media (max-width: 768px) {
     max-width: 100%;
   }
-`;
-
-const Row = styled.div`
-  display: flex;
-`;
-
-const Col = styled.div`
-  flex: 1;
 `;
 
 const App = () => {
@@ -42,15 +34,12 @@ const App = () => {
             <Input onChange={handleInput} />
           </Col>
           <Col>
-            <Input value={output} />
+            <Input value={output} readOnly />
           </Col>
         </Row>
         <Row>
           <Col>
-            <Images images={images} />
-          </Col>
-          <Col>
-            <DropZone onButtonClick={setOutput} />
+            <DropZone images={images} onButtonClick={setOutput} />
           </Col>
         </Row>
       </StyledBody>

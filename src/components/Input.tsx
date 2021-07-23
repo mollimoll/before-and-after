@@ -18,12 +18,13 @@ const StyledContainer = styled.div`
 type Props = {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value?: string;
+  readOnly?: boolean;
 };
 
-export const Input = ({ onChange, value }: Props) => {
+export const Input = ({ onChange, value, readOnly = false }: Props) => {
   return (
     <StyledContainer>
-      <TextArea onChange={onChange} value={value} />
+      <TextArea onChange={onChange} value={value} readOnly={readOnly} />
     </StyledContainer>
   );
 };
