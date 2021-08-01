@@ -3,17 +3,21 @@ import styled from 'styled-components';
 import { ImageData } from '../utils/parsing';
 import { createMarkdownTable } from '../utils/table';
 import { Button } from './Button';
-import { Col, Row } from './Grid';
+import { Col, Row, ColSpacer, ColSpacerMini } from './Grid';
 import { Images } from './Images';
 
 const ADD_BEFORE_IMG = 'ADD_BEFORE_IMG';
 const ADD_AFTER_IMG = 'ADD_AFTER_IMG';
 
 const StyledCell = styled.div`
+  font-size: inherit;
+  font-family: inherit;
+
   flex: 1;
-  background-color: aliceblue;
-  margin: 4px;
-  padding: 4px;
+  width: 100%;
+
+  border: 0.1em solid #000000;
+  border-radius: 0.12em;
 `;
 
 const StyledImg = styled.img`
@@ -104,6 +108,7 @@ export const DropZone = ({ onButtonClick, images }: Props) => {
         <Col>
           <Images images={images} />
         </Col>
+        <ColSpacer />
         <Col>
           <DropTable data={data} dispatch={dispatch} />
         </Col>
@@ -118,10 +123,13 @@ export const DropTable = ({ data, dispatch }) => {
   return (
     <>
       <Row>
-        {headerRow.map((name) => (
-          <Cell name={name}>
-            <strong>{name}</strong>
-          </Cell>
+        {headerRow.map((name, i) => (
+          <>
+            {i !== 0 && <ColSpacerMini />}
+            <Cell name={name}>
+              <strong>{name}</strong>
+            </Cell>
+          </>
         ))}
       </Row>
       {Object.keys(data).map((key) => {
@@ -131,9 +139,11 @@ export const DropTable = ({ data, dispatch }) => {
             <Cell name={key}>
               <p>{key}</p>
             </Cell>
+            <ColSpacerMini />
             <Cell name={key} dispatch={dispatch} action={ADD_BEFORE_IMG}>
               <StyledImg key={beforeImg} src={beforeImg} id={beforeImg} />
             </Cell>
+            <ColSpacerMini />
             <Cell name={key} dispatch={dispatch} action={ADD_AFTER_IMG}>
               <StyledImg key={afterImg} src={afterImg} id={afterImg} />
             </Cell>

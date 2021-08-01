@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { DropZone } from './components/DropZone';
-import { Col, Row } from './components/Grid';
+import { Col, Row, ColSpacer } from './components/Grid';
 import { Input } from './components/Input';
+import { device, margin } from './styles';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
-// import './skeleton.css';
-// import './normalize.css';
 
-const StyledBody = styled.div`
-  max-width: 80%;
+const BodyContainer = styled.div`
   display: block;
-  margin: 0 auto;
+  margin: ${margin.phone};
   text-align: center;
 
-  @media (max-width: 768px) {
-    max-width: 100%;
+  @media ${device.forTabletPortraitUp} {
+    margin: ${margin.tablet};
+  }
+
+  @media ${device.forDesktopUp} {
+    margin: ${margin.desktop};
   }
 `;
 
@@ -28,11 +30,12 @@ const App = () => {
 
   return (
     <div className="App">
-      <StyledBody>
+      <BodyContainer>
         <Row>
           <Col>
             <Input onChange={handleInput} />
           </Col>
+          <ColSpacer />
           <Col>
             <Input value={output} readOnly />
           </Col>
@@ -42,7 +45,7 @@ const App = () => {
             <DropZone images={images} onButtonClick={setOutput} />
           </Col>
         </Row>
-      </StyledBody>
+      </BodyContainer>
     </div>
   );
 };
