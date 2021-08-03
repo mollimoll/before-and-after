@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const TextArea = styled.textarea`
   font-size: inherit;
@@ -23,7 +23,7 @@ type Props = {
 
 export const Input = ({
   onChange,
-  placeholder = '',
+  placeholder = "",
   readOnly = false,
   value,
 }: Props) => {

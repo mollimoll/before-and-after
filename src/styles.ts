@@ -1,11 +1,11 @@
 const BASE = 8;
 
 export const device = {
-  forPhoneOnly: '(max-width: 599px)',
-  forTabletPortraitUp: '(min-width: 600px)',
-  forTabletLandscapeUp: '(min-width: 900px)',
-  forDesktopUp: '(min-width: 1200px)',
-  forBigDesktopUp: '(min-width: 1800px)',
+  forPhoneOnly: "(max-width: 599px)",
+  forTabletPortraitUp: "(min-width: 600px)",
+  forTabletLandscapeUp: "(min-width: 900px)",
+  forDesktopUp: "(min-width: 1200px)",
+  forBigDesktopUp: "(min-width: 1800px)",
 };
 
 export const margin = {
