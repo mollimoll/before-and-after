@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Paragraph = styled.p`
   text-align: left;
@@ -8,7 +8,7 @@ export const HowTo = () => (
   <Paragraph>
     How to add images in the tool:
     <ol>
-      <li>To begin, open a pull request in Github, or edit a Markdown file.</li>
+      <li>To begin, open a pull request or edit a markdown file in Github.</li>
       <li>
         In the description of the pull request, drag and drop your images into
         the text area.

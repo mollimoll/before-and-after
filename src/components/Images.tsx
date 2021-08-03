@@ -1,5 +1,5 @@
-import { ImageData } from '../utils/parsing';
-import styled from 'styled-components';
+import { ImageData } from "../utils/parsing";
+import styled from "styled-components";
 
 type Props = {
   images: ImageData[];
