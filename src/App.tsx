@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { DropZone } from './components/DropZone';
 import { Col, Row, ColSpacer } from './components/Grid';
+import { HowTo } from './components/HowTo';
 import { Input } from './components/Input';
 import { device, margin } from './styles';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
@@ -33,17 +34,27 @@ const App = () => {
       <BodyContainer>
         <Row>
           <Col>
-            <Input onChange={handleInput} />
+            <Input
+              placeholder="Paste Github image links here"
+              onChange={handleInput}
+            />
           </Col>
           <ColSpacer />
           <Col>
-            <Input value={output} readOnly />
+            <Input
+              placeholder="Markdown output appears here"
+              value={output}
+              readOnly
+            />
           </Col>
         </Row>
         <Row>
           <Col>
             <DropZone images={images} onButtonClick={setOutput} />
           </Col>
+        </Row>
+        <Row>
+          <HowTo />
         </Row>
       </BodyContainer>
     </div>
