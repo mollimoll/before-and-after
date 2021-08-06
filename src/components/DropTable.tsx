@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from "../utils/constants";
-import { ColSpacerMini, Row } from "./Grid";
+import styled from 'styled-components';
+import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from '../utils/constants';
+import { ColSpacerMini, Row } from './Grid';
 
 const StyledCell = styled.div`
   font-size: inherit;
@@ -40,7 +40,7 @@ const Cell = ({ name, action, dispatch, children }: CellProps) => {
       dispatch({
         type: action,
         name,
-        imgSrc: e.dataTransfer.getData("text/uri-list"),
+        imgSrc: e.dataTransfer.getData('text/uri-list'),
       });
     e.stopPropagation();
   };
@@ -57,7 +57,7 @@ const Cell = ({ name, action, dispatch, children }: CellProps) => {
   );
 };
 export const DropTable = ({ data, dispatch }) => {
-  const headerRow = ["Device", "Before", "After"];
+  const headerRow = ['Device', 'Before', 'After'];
 
   return (
     <>

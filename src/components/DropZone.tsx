@@ -1,16 +1,16 @@
-import { Dispatch, SetStateAction, useReducer } from "react";
-import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from "../utils/constants";
-import { ImageData } from "../utils/parsing";
-import { createMarkdownTable } from "../utils/table";
-import { Button } from "./Button";
-import { DropTable } from "./DropTable";
-import { Col, ColSpacer, Row } from "./Grid";
-import { Images } from "./Images";
+import { Dispatch, SetStateAction, useReducer } from 'react';
+import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from '../utils/constants';
+import { ImageData } from '../utils/parsing';
+import { createMarkdownTable } from '../utils/table';
+import { Button } from './Button';
+import { DropTable } from './DropTable';
+import { Col, ColSpacer, Row } from './Grid';
+import { Images } from './Images';
 
 const dummyCellData = {
-  Mobile: { beforeImg: "", afterImg: "" },
-  Tablet: { beforeImg: "", afterImg: "" },
-  Desktop: { beforeImg: "", afterImg: "" },
+  Mobile: { beforeImg: '', afterImg: '' },
+  Tablet: { beforeImg: '', afterImg: '' },
+  Desktop: { beforeImg: '', afterImg: '' },
 };
 
 const reducer = (state, action) => {
