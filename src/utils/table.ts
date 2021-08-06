@@ -2,7 +2,7 @@ const HEADER_ROWS = `|Device|Before|After|\n|---|---|---|`;
 
 const getWidth = (device: string) => {
   switch (device) {
-    case "Mobile":
+    case 'Mobile':
       return 250;
     default:
       return 325;

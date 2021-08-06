@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { device, margin } from "../styles";
+import styled from 'styled-components';
+import { device, margin } from '../styles';
 
 export const Row = styled.div`
   display: flex;
