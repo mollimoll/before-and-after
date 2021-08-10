@@ -2,7 +2,7 @@ import React, { useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from './components/Button';
 import { DropTable } from './components/DropTable';
-import { Col, Row, ColSpacer } from './components/Grid';
+import { Col, Row, ColSpacer, BottomRow } from './components/Grid';
 import { Images } from './components/Images';
 import { Input } from './components/Input';
 import { device, margin } from './styles';
@@ -14,15 +14,15 @@ import { ToolTip } from './components/ToolTip';
 
 const BodyContainer = styled.div`
   display: block;
-  margin: ${margin.phone};
+  margin: ${margin.phoneDouble};
   text-align: center;
 
   @media ${device.forTabletPortraitUp} {
-    margin: ${margin.tablet};
+    margin: ${margin.tabletDouble};
   }
 
   @media ${device.forDesktopUp} {
-    margin: ${margin.desktop};
+    margin: ${margin.desktopDouble};
   }
 `;
 
@@ -65,21 +65,15 @@ const App = () => {
   return (
     <div className="App">
       <BodyContainer>
+        <Row>
+          <Col>
+            <h1>Markdown Table Generator</h1>
+          </Col>
+        </Row>
         {!!(page === 1) ? (
           <>
             <Row>
-              <Col>
-                <h1>
-                  {'Image Markdown'}
-                  <ToolTip>
-                    <Page1HelpText />
-                  </ToolTip>
-                </h1>
-                <Input
-                  placeholder="Paste Github image links here"
-                  onChange={handleInput}
-                />
-              </Col>
+              <Col></Col>
               <ColSpacer />
               <Col>
                 <Button handleClick={incrementPage}>
@@ -87,18 +81,26 @@ const App = () => {
                 </Button>
               </Col>
             </Row>
-            {!!images.length && (
-              <Row>
-                <Col>
-                  <h1>Images</h1>
-                  <Images images={images} />
-                </Col>
-              </Row>
-            )}
+            <Row>
+              <Col>
+                <Row>
+                  <Input
+                    placeholder="Paste Github image links here"
+                    onChange={handleInput}
+                  />
+                </Row>
+                {!!images.length && (
+                  <Row>
+                    <h1>Images</h1>
+                    <Images images={images} />
+                  </Row>
+                )}
+              </Col>
+            </Row>
           </>
         ) : !!(page === 2) ? (
           <>
-            <Row>
+            <Row height={'30px'}>
               <Col>
                 <Button handleClick={decrementPage}>
                   &#128072; Edit Upload
@@ -116,7 +118,7 @@ const App = () => {
                 </Button>
               </Col>
             </Row>
-            <Row>
+            <BottomRow>
               <Col>
                 <Images images={images} />
               </Col>
@@ -124,7 +126,7 @@ const App = () => {
               <Col>
                 <DropTable data={data} dispatch={dispatch} />
               </Col>
-            </Row>
+            </BottomRow>
           </>
         ) : !!(page === 3) ? (
           <>
@@ -143,12 +145,6 @@ const App = () => {
             </Row>
             <Row>
               <Col>
-                <h1>
-                  {'Markdown for Github'}
-                  <ToolTip>
-                    <Page1HelpText />
-                  </ToolTip>
-                </h1>
                 <Input
                   placeholder="Markdown output appears here"
                   value={output}

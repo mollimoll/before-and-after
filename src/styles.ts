@@ -9,6 +9,9 @@ export const device = {
 };
 
 export const margin = {
+  phoneDouble: `${BASE * 2}px`,
+  tabletDouble: `${BASE * 2 * 2}px`,
+  desktopDouble: `${BASE * 3 * 2}px`,
   phone: `${BASE}px`,
   tablet: `${BASE * 2}px`,
   desktop: `${BASE * 3}px`,
