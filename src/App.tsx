@@ -9,6 +9,8 @@ import { device, margin } from './styles';
 import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from './utils/constants';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
 import { createMarkdownTable } from './utils/table';
+import { Page1HelpText } from './components/HowTo';
+import { ToolTip } from './components/ToolTip';
 
 const BodyContainer = styled.div`
   display: block;
@@ -67,10 +69,15 @@ const App = () => {
           <>
             <Row>
               <Col>
+                <h1>
+                  {'Image Markdown'}
+                  <ToolTip>
+                    <Page1HelpText />
+                  </ToolTip>
+                </h1>
                 <Input
                   placeholder="Paste Github image links here"
                   onChange={handleInput}
-                  title="Image Markdown"
                 />
               </Col>
               <ColSpacer />
@@ -136,11 +143,16 @@ const App = () => {
             </Row>
             <Row>
               <Col>
+                <h1>
+                  {'Markdown for Github'}
+                  <ToolTip>
+                    <Page1HelpText />
+                  </ToolTip>
+                </h1>
                 <Input
                   placeholder="Markdown output appears here"
                   value={output}
                   readOnly
-                  title="Markdown for Github"
                 />
               </Col>
             </Row>

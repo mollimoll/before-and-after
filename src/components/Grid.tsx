@@ -4,7 +4,7 @@ import { device, margin } from '../styles';
 export const Row = styled.div`
   display: flex;
   padding: ${margin.phoneHalf} 0;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
 
   @media ${device.forTabletPortraitUp} {

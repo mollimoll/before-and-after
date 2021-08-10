@@ -22,7 +22,6 @@ type Props = {
   placeholder?: string;
   readOnly?: boolean;
   value?: string;
-  title: string;
 };
 
 export const Input = ({
@@ -30,12 +29,11 @@ export const Input = ({
   placeholder = '',
   readOnly = false,
   value,
-  title,
 }: Props) => {
   return (
     <StyledContainer>
-      <h1>{title}</h1>
       <TextArea
+        rows={10}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
