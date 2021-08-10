@@ -3,14 +3,17 @@ import styled from 'styled-components';
 const TextArea = styled.textarea`
   font-size: inherit;
   font-family: inherit;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   width: 100%;
-  padding: 0.35em 1.2em;
   border: 0.1em solid #000000;
   border-radius: 0.12em;
 `;
 
 const StyledContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
 `;
 
@@ -30,6 +33,7 @@ export const Input = ({
   return (
     <StyledContainer>
       <TextArea
+        rows={10}
         placeholder={placeholder}
         onChange={onChange}
         value={value}

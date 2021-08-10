@@ -4,6 +4,31 @@ const Paragraph = styled.p`
   text-align: left;
 `;
 
+export const Page1HelpText = () => (
+  <ol>
+    <li>
+      To begin, drag and drop your images into the text area of the description
+      of a Github pull request.
+      <ul>
+        <li>
+          This will generate Markdown links to the images. Each will look
+          similar to this:
+          <ul>
+            <li>
+              <code>
+                ![googlelogo_color_272x92dp](https://user-images.githubusercontent.com/26528097/127917455-f91173aa-e5f3-4a2f-aa26-b480b4c13b50.png)
+              </code>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Copy this list of images and paste them into the text box on this page.
+    </li>
+  </ol>
+);
+
 export const HowTo = () => (
   <Paragraph>
     How to add images in the tool:
