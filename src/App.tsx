@@ -9,8 +9,6 @@ import { device, margin } from './styles';
 import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from './utils/constants';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
 import { createMarkdownTable } from './utils/table';
-import { Page1HelpText } from './components/HowTo';
-import { ToolTip } from './components/ToolTip';
 
 const BodyContainer = styled.div`
   display: block;
@@ -83,17 +81,15 @@ const App = () => {
             </Row>
             <Row>
               <Col>
-                <Row>
-                  <Input
-                    placeholder="Paste Github image links here"
-                    onChange={handleInput}
-                  />
-                </Row>
+                <Input
+                  placeholder="Paste Github image links here"
+                  onChange={handleInput}
+                />
                 {!!images.length && (
-                  <Row>
+                  <>
                     <h1>Images</h1>
                     <Images images={images} />
-                  </Row>
+                  </>
                 )}
               </Col>
             </Row>

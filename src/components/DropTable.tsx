@@ -9,8 +9,7 @@ const StyledCell = styled.div`
   flex: 1;
   width: 100%;
 
-  border: 0.1em solid #000000;
-  border-radius: 0.12em;
+  align-self: stretch;
 `;
 
 const StyledImg = styled.img`
