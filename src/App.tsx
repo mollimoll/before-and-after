@@ -6,7 +6,7 @@ import { Col, Row, ColSpacer, BottomRow } from './components/Grid';
 import { Images } from './components/Images';
 import { Input } from './components/Input';
 import { device, margin } from './styles';
-import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from './utils/constants';
+import { ADD_AFTER_IMG, ADD_BEFORE_IMG, RESET } from './utils/constants';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
 import { createMarkdownTable } from './utils/table';
 
@@ -43,6 +43,8 @@ const reducer = (state: CellData, action) => {
         afterImg: action.imgSrc,
       };
       return { ...state };
+    case RESET:
+      return initialCellData;
     default:
       return state;
   }
@@ -80,7 +82,7 @@ const App = () => {
             <h1>Markdown Table Generator</h1>
           </Col>
         </Row>
-        {!!(page === 1) ? (
+        {page === 1 ? (
           <>
             <Row>
               <Col></Col>
@@ -106,7 +108,7 @@ const App = () => {
               </Col>
             </Row>
           </>
-        ) : !!(page === 2) ? (
+        ) : page === 2 ? (
           <>
             <Row height={'30px'}>
               <Col>
@@ -136,7 +138,7 @@ const App = () => {
               </Col>
             </BottomRow>
           </>
-        ) : !!(page === 3) ? (
+        ) : page === 3 ? (
           <>
             <Row>
               <Col>
@@ -146,7 +148,12 @@ const App = () => {
               </Col>
               <ColSpacer />
               <Col>
-                <Button handleClick={() => setPage(1)}>
+                <Button
+                  handleClick={() => {
+                    dispatch({ type: RESET });
+                    setPage(1);
+                  }}
+                >
                   Start Over &#128073;
                 </Button>
               </Col>
