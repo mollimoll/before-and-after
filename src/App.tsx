@@ -24,31 +24,43 @@ const BodyContainer = styled.div`
   }
 `;
 
-const dummyCellData = {
-  Mobile: { beforeImg: '', afterImg: '' },
-  Tablet: { beforeImg: '', afterImg: '' },
-  Desktop: { beforeImg: '', afterImg: '' },
+const initialCellData: CellData = {
+  rows: [
+    { id: '1', title: 'test', beforeImg: '', afterImg: '' },
+    { id: '2', title: 'test2', beforeImg: '', afterImg: '' },
+  ],
 };
 
-const reducer = (state, action) => {
+const reducer = (state: CellData, action) => {
+  const index = state.rows.findIndex((row) => action.id === row.id);
   switch (action.type) {
     case ADD_BEFORE_IMG:
-      return {
-        ...state,
-        [action.name]: { ...state[action.name], beforeImg: action.imgSrc },
-      };
+      state.rows[index] = { ...state.rows[index], beforeImg: action.imgSrc };
+      return { ...state };
     case ADD_AFTER_IMG:
-      return {
-        ...state,
-        [action.name]: { ...state[action.name], afterImg: action.imgSrc },
+      state.rows[index] = {
+        ...state.rows[index],
+        afterImg: action.imgSrc,
       };
+      return { ...state };
     default:
       return state;
   }
 };
 
+export type CellData = {
+  rows: RowData[];
+};
+
+type RowData = {
+  id: string;
+  title: string;
+  beforeImg: string;
+  afterImg: string;
+};
+
 const App = () => {
-  const [data, dispatch] = useReducer(reducer, dummyCellData);
+  const [data, dispatch] = useReducer(reducer, initialCellData);
   const [images, setImages] = useState([] as ImageData[]);
   const [output, setOutput] = useState('');
   const [page, setPage] = useState(1);

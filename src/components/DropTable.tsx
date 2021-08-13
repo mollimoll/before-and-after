@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CellData } from '../App';
 import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from '../utils/constants';
 import { ColSpacerMini, Row } from './Grid';
 
@@ -19,7 +20,7 @@ const StyledImg = styled.img`
 `;
 
 type CellProps = {
-  name: string;
+  id: string;
   action?: string;
   dispatch?: React.Dispatch<any>;
   children: JSX.Element[] | JSX.Element;
@@ -27,7 +28,7 @@ type CellProps = {
 
 type Drag = React.DragEvent<HTMLDivElement>;
 
-const Cell = ({ name, action, dispatch, children }: CellProps) => {
+const Cell = ({ id, action, dispatch, children }: CellProps) => {
   const defaultDrag = (e: Drag) => {
     e.preventDefault();
     e.stopPropagation();
@@ -38,7 +39,7 @@ const Cell = ({ name, action, dispatch, children }: CellProps) => {
     dispatch &&
       dispatch({
         type: action,
-        name,
+        id,
         imgSrc: e.dataTransfer.getData('text/uri-list'),
       });
     e.stopPropagation();
@@ -55,7 +56,13 @@ const Cell = ({ name, action, dispatch, children }: CellProps) => {
     </StyledCell>
   );
 };
-export const DropTable = ({ data, dispatch }) => {
+
+type DropTableProps = {
+  data: CellData;
+  dispatch: React.Dispatch<any>;
+};
+
+export const DropTable = ({ data, dispatch }: DropTableProps) => {
   const headerRow = ['Device', 'Before', 'After'];
 
   return (
@@ -64,25 +71,24 @@ export const DropTable = ({ data, dispatch }) => {
         {headerRow.map((name, i) => (
           <>
             {i !== 0 && <ColSpacerMini />}
-            <Cell name={name}>
+            <Cell id={name}>
               <strong>{name}</strong>
             </Cell>
           </>
         ))}
       </Row>
-      {Object.keys(data).map((key) => {
-        const { beforeImg, afterImg } = data[key];
+      {data.rows.map(({ id, title, beforeImg, afterImg }) => {
         return (
-          <Row key={key}>
-            <Cell name={key}>
-              <p>{key}</p>
+          <Row key={id}>
+            <Cell id={id}>
+              <p>{title}</p>
             </Cell>
             <ColSpacerMini />
-            <Cell name={key} dispatch={dispatch} action={ADD_BEFORE_IMG}>
+            <Cell id={id} dispatch={dispatch} action={ADD_BEFORE_IMG}>
               <StyledImg key={beforeImg} src={beforeImg} id={beforeImg} />
             </Cell>
             <ColSpacerMini />
-            <Cell name={key} dispatch={dispatch} action={ADD_AFTER_IMG}>
+            <Cell id={id} dispatch={dispatch} action={ADD_AFTER_IMG}>
               <StyledImg key={afterImg} src={afterImg} id={afterImg} />
             </Cell>
           </Row>

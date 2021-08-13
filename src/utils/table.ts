@@ -1,3 +1,5 @@
+import { CellData } from '../App';
+
 const HEADER_ROWS = `|Device|Before|After|\n|---|---|---|`;
 
 const getWidth = (device: string) => {
@@ -9,14 +11,17 @@ const getWidth = (device: string) => {
   }
 };
 
-export const createMarkdownTable = (data: {}) => {
-  const rowHeaders = Object.keys(data);
-  const test = rowHeaders.map((header) => {
-    const { beforeImg, afterImg } = data[header];
-    const width = getWidth(header);
-    return `|${header}|<img src="${beforeImg}" width="${width}" />|<img src="${afterImg}" width="${width}" />|`;
+export const createMarkdownTable = (data: CellData = { rows: [] }) => {
+  const rowMarkdown = data.rows.map((row) => {
+    const { beforeImg, afterImg } = row;
+    const width = getWidth('Mobile');
+    return `|${row.title}|<img src="${beforeImg}" width="${width}" />|<img src="${afterImg}" width="${width}" />|`;
   });
-  const output = test.reduce((output, row) => output + `\n` + row, HEADER_ROWS);
+
+  const output = rowMarkdown.reduce(
+    (output, row) => output + `\n` + row,
+    HEADER_ROWS
+  );
 
   return output;
 };
