@@ -1,6 +1,12 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { CellData } from '../App';
-import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from '../utils/constants';
+import {
+  ADD_AFTER_IMG,
+  ADD_BEFORE_IMG,
+  EDIT,
+  EDIT_ENDED,
+} from '../utils/constants';
 import { ColSpacerMini, Row } from './Grid';
 
 const StyledCell = styled.div`
@@ -11,6 +17,17 @@ const StyledCell = styled.div`
   width: 100%;
 
   align-self: stretch;
+`;
+
+const StyledTitle = styled.div`
+  font-size: inherit;
+  font-family: inherit;
+
+  flex-direction: row-reverse;
+  flex: 1;
+  width: 100%;
+
+  align-content: space-between;
 `;
 
 const StyledImg = styled.img`
@@ -57,13 +74,41 @@ const Cell = ({ id, action, dispatch, children }: CellProps) => {
   );
 };
 
+type RowTitleProps = {
+  id: string;
+  dispatch: React.Dispatch<any>;
+  editing: boolean;
+  title: string;
+};
+
+const RowTitle = ({ id, dispatch, editing, title }: RowTitleProps) => {
+  const [value, setValue] = useState(title);
+  const startEdit = () => dispatch({ type: EDIT, id });
+  const finishEdit = () => dispatch({ type: EDIT_ENDED, id, title: value });
+
+  return (
+    <StyledTitle>
+      {editing ? (
+        <h3>
+          <input value={value} onChange={(e) => setValue(e.target.value)} />
+          <span onClick={finishEdit}>&nbsp;&#128190;</span>
+        </h3>
+      ) : (
+        <h3>
+          {title} <span onClick={startEdit}>&#9999;</span>
+        </h3>
+      )}
+    </StyledTitle>
+  );
+};
+
 type DropTableProps = {
   data: CellData;
   dispatch: React.Dispatch<any>;
 };
 
 export const DropTable = ({ data, dispatch }: DropTableProps) => {
-  const headerRow = ['Device', 'Before', 'After'];
+  const headerRow = ['', 'Before', 'After'];
 
   return (
     <>
@@ -77,12 +122,15 @@ export const DropTable = ({ data, dispatch }: DropTableProps) => {
           </>
         ))}
       </Row>
-      {data.rows.map(({ id, title, beforeImg, afterImg }) => {
+      {data.rows.map(({ id, title, beforeImg, afterImg, editing }) => {
         return (
           <Row key={id}>
-            <Cell id={id}>
-              <p>{title}</p>
-            </Cell>
+            <RowTitle
+              id={id}
+              dispatch={dispatch}
+              editing={editing}
+              title={title}
+            />
             <ColSpacerMini />
             <Cell id={id} dispatch={dispatch} action={ADD_BEFORE_IMG}>
               <StyledImg key={beforeImg} src={beforeImg} id={beforeImg} />

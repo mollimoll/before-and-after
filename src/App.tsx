@@ -6,7 +6,13 @@ import { Col, Row, ColSpacer, BottomRow } from './components/Grid';
 import { Images } from './components/Images';
 import { Input } from './components/Input';
 import { device, margin } from './styles';
-import { ADD_AFTER_IMG, ADD_BEFORE_IMG, RESET } from './utils/constants';
+import {
+  ADD_AFTER_IMG,
+  ADD_BEFORE_IMG,
+  EDIT,
+  EDIT_ENDED,
+  RESET,
+} from './utils/constants';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
 import { createMarkdownTable } from './utils/table';
 
@@ -26,14 +32,26 @@ const BodyContainer = styled.div`
 
 const initialCellData: CellData = {
   rows: [
-    { id: '1', title: 'test', beforeImg: '', afterImg: '' },
-    { id: '2', title: 'test2', beforeImg: '', afterImg: '' },
+    { id: '1', title: 'test', beforeImg: '', afterImg: '', editing: true },
   ],
 };
 
 const reducer = (state: CellData, action) => {
   const index = state.rows.findIndex((row) => action.id === row.id);
   switch (action.type) {
+    case EDIT:
+      state.rows[index] = {
+        ...state.rows[index],
+        editing: true,
+      };
+      return { ...state };
+    case EDIT_ENDED:
+      state.rows[index] = {
+        ...state.rows[index],
+        title: action.title,
+        editing: false,
+      };
+      return { ...state };
     case ADD_BEFORE_IMG:
       state.rows[index] = { ...state.rows[index], beforeImg: action.imgSrc };
       return { ...state };
@@ -59,6 +77,7 @@ type RowData = {
   title: string;
   beforeImg: string;
   afterImg: string;
+  editing: boolean;
 };
 
 const App = () => {
