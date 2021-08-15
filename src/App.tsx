@@ -1,4 +1,5 @@
 import React, { useReducer, useState } from 'react';
+import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import { Button } from './components/Button';
 import { DropTable } from './components/DropTable';
@@ -9,6 +10,7 @@ import { device, margin } from './styles';
 import {
   ADD_AFTER_IMG,
   ADD_BEFORE_IMG,
+  ADD_ROW,
   EDIT,
   EDIT_ENDED,
   RESET,
@@ -31,14 +33,26 @@ const BodyContainer = styled.div`
 `;
 
 const initialCellData: CellData = {
-  rows: [
-    { id: '1', title: 'test', beforeImg: '', afterImg: '', editing: true },
-  ],
+  rows: [{ id: '1', title: '', beforeImg: '', afterImg: '', editing: true }],
 };
 
 const reducer = (state: CellData, action) => {
   const index = state.rows.findIndex((row) => action.id === row.id);
   switch (action.type) {
+    case ADD_ROW:
+      return {
+        ...state,
+        rows: [
+          ...state.rows,
+          {
+            id: nanoid(),
+            title: '',
+            beforeImg: '',
+            afterImg: '',
+            editing: true,
+          },
+        ],
+      };
     case EDIT:
       state.rows[index] = {
         ...state.rows[index],

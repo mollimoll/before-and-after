@@ -4,9 +4,11 @@ import { CellData } from '../App';
 import {
   ADD_AFTER_IMG,
   ADD_BEFORE_IMG,
+  ADD_ROW,
   EDIT,
   EDIT_ENDED,
 } from '../utils/constants';
+import { Button } from './Button';
 import { ColSpacerMini, Row } from './Grid';
 
 const StyledCell = styled.div`
@@ -90,7 +92,11 @@ const RowTitle = ({ id, dispatch, editing, title }: RowTitleProps) => {
     <StyledTitle>
       {editing ? (
         <h3>
-          <input value={value} onChange={(e) => setValue(e.target.value)} />
+          <input
+            placeholder="Name"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
           <span onClick={finishEdit}>&nbsp;&#128190;</span>
         </h3>
       ) : (
@@ -142,6 +148,9 @@ export const DropTable = ({ data, dispatch }: DropTableProps) => {
           </Row>
         );
       })}
+      <Row>
+        <Button handleClick={() => dispatch({ type: ADD_ROW })}>Add Row</Button>
+      </Row>
     </>
   );
 };

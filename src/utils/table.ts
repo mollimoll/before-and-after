@@ -1,6 +1,6 @@
 import { CellData } from '../App';
 
-const HEADER_ROWS = `|Device|Before|After|\n|---|---|---|`;
+const HEADER_ROWS = `||Before|After|\n|---|---|---|`;
 
 const getWidth = (device: string) => {
   switch (device) {
