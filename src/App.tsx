@@ -5,7 +5,7 @@ import { Button } from './components/Button';
 import { DropTable } from './components/DropTable';
 import { Col, Row, ColSpacer, BottomRow } from './components/Grid';
 import { Images } from './components/Images';
-import { Input } from './components/Input';
+import { Input, ReadOnlyInput } from './components/Input';
 import { device, margin } from './styles';
 import {
   ADD_AFTER_IMG,
@@ -199,11 +199,7 @@ const App = () => {
             </Row>
             <Row>
               <Col>
-                <Input
-                  placeholder="Markdown output appears here"
-                  value={output}
-                  readOnly
-                />
+                <ReadOnlyInput value={output} />
               </Col>
             </Row>
           </>

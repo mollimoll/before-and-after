@@ -17,28 +17,28 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-type Props = {
+type InputProps = {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
+};
+
+export const Input = ({ onChange, placeholder = '' }: InputProps) => {
+  return (
+    <StyledContainer>
+      <TextArea rows={10} placeholder={placeholder} onChange={onChange} />
+    </StyledContainer>
+  );
+};
+
+type ReadOnlyInputProps = {
   readOnly?: boolean;
   value?: string;
 };
 
-export const Input = ({
-  onChange,
-  placeholder = '',
-  readOnly = false,
-  value,
-}: Props) => {
+export const ReadOnlyInput = ({ value }: ReadOnlyInputProps) => {
   return (
     <StyledContainer>
-      <TextArea
-        rows={10}
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value}
-        readOnly={readOnly}
-      />
+      <TextArea rows={10} value={value} readOnly />
     </StyledContainer>
   );
 };
