@@ -11,6 +11,7 @@ import {
   ADD_AFTER_IMG,
   ADD_BEFORE_IMG,
   ADD_ROW,
+  DELETE_ROW,
   EDIT,
   EDIT_ENDED,
   RESET,
@@ -52,6 +53,11 @@ const reducer = (state: CellData, action) => {
             editing: true,
           },
         ],
+      };
+    case DELETE_ROW:
+      return {
+        ...state,
+        rows: state.rows.filter((row) => row.id !== action.id),
       };
     case EDIT:
       state.rows[index] = {

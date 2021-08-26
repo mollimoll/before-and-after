@@ -4,3 +4,4 @@ export const RESET = 'RESET';
 export const EDIT = 'EDIT';
 export const EDIT_ENDED = 'EDIT_ENDED';
 export const ADD_ROW = 'ADD_ROW';
+export const DELETE_ROW = 'DELETE_ROW';
