@@ -1,4 +1,5 @@
 import React, { useReducer, useState } from 'react';
+import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import { Button } from './components/Button';
 import { DropTable } from './components/DropTable';
@@ -6,11 +7,17 @@ import { Col, Row, ColSpacer, BottomRow } from './components/Grid';
 import { Images } from './components/Images';
 import { Input } from './components/Input';
 import { device, margin } from './styles';
-import { ADD_AFTER_IMG, ADD_BEFORE_IMG } from './utils/constants';
+import {
+  ADD_AFTER_IMG,
+  ADD_BEFORE_IMG,
+  ADD_ROW,
+  DELETE_ROW,
+  EDIT,
+  EDIT_ENDED,
+  RESET,
+} from './utils/constants';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
 import { createMarkdownTable } from './utils/table';
-import { Page1HelpText } from './components/HowTo';
-import { ToolTip } from './components/ToolTip';
 
 const BodyContainer = styled.div`
   display: block;
@@ -26,31 +33,75 @@ const BodyContainer = styled.div`
   }
 `;
 
-const dummyCellData = {
-  Mobile: { beforeImg: '', afterImg: '' },
-  Tablet: { beforeImg: '', afterImg: '' },
-  Desktop: { beforeImg: '', afterImg: '' },
+const initialCellData: CellData = {
+  rows: [{ id: '1', title: '', beforeImg: '', afterImg: '', editing: true }],
 };
 
-const reducer = (state, action) => {
+const reducer = (state: CellData, action) => {
+  const index = state.rows.findIndex((row) => action.id === row.id);
   switch (action.type) {
+    case ADD_ROW:
+      return {
+        ...state,
+        rows: [
+          ...state.rows,
+          {
+            id: nanoid(),
+            title: '',
+            beforeImg: '',
+            afterImg: '',
+            editing: true,
+          },
+        ],
+      };
+    case DELETE_ROW:
+      return {
+        ...state,
+        rows: state.rows.filter((row) => row.id !== action.id),
+      };
+    case EDIT:
+      state.rows[index] = {
+        ...state.rows[index],
+        editing: true,
+      };
+      return { ...state };
+    case EDIT_ENDED:
+      state.rows[index] = {
+        ...state.rows[index],
+        title: action.title,
+        editing: false,
+      };
+      return { ...state };
     case ADD_BEFORE_IMG:
-      return {
-        ...state,
-        [action.name]: { ...state[action.name], beforeImg: action.imgSrc },
-      };
+      state.rows[index] = { ...state.rows[index], beforeImg: action.imgSrc };
+      return { ...state };
     case ADD_AFTER_IMG:
-      return {
-        ...state,
-        [action.name]: { ...state[action.name], afterImg: action.imgSrc },
+      state.rows[index] = {
+        ...state.rows[index],
+        afterImg: action.imgSrc,
       };
+      return { ...state };
+    case RESET:
+      return initialCellData;
     default:
       return state;
   }
 };
 
+export type CellData = {
+  rows: RowData[];
+};
+
+type RowData = {
+  id: string;
+  title: string;
+  beforeImg: string;
+  afterImg: string;
+  editing: boolean;
+};
+
 const App = () => {
-  const [data, dispatch] = useReducer(reducer, dummyCellData);
+  const [data, dispatch] = useReducer(reducer, initialCellData);
   const [images, setImages] = useState([] as ImageData[]);
   const [output, setOutput] = useState('');
   const [page, setPage] = useState(1);
@@ -70,7 +121,7 @@ const App = () => {
             <h1>Markdown Table Generator</h1>
           </Col>
         </Row>
-        {!!(page === 1) ? (
+        {page === 1 ? (
           <>
             <Row>
               <Col></Col>
@@ -83,22 +134,20 @@ const App = () => {
             </Row>
             <Row>
               <Col>
-                <Row>
-                  <Input
-                    placeholder="Paste Github image links here"
-                    onChange={handleInput}
-                  />
-                </Row>
+                <Input
+                  placeholder="Paste Github image links here"
+                  onChange={handleInput}
+                />
                 {!!images.length && (
-                  <Row>
+                  <>
                     <h1>Images</h1>
                     <Images images={images} />
-                  </Row>
+                  </>
                 )}
               </Col>
             </Row>
           </>
-        ) : !!(page === 2) ? (
+        ) : page === 2 ? (
           <>
             <Row height={'30px'}>
               <Col>
@@ -128,7 +177,7 @@ const App = () => {
               </Col>
             </BottomRow>
           </>
-        ) : !!(page === 3) ? (
+        ) : page === 3 ? (
           <>
             <Row>
               <Col>
@@ -138,7 +187,12 @@ const App = () => {
               </Col>
               <ColSpacer />
               <Col>
-                <Button handleClick={() => setPage(1)}>
+                <Button
+                  handleClick={() => {
+                    dispatch({ type: RESET });
+                    setPage(1);
+                  }}
+                >
                   Start Over &#128073;
                 </Button>
               </Col>
