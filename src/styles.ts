@@ -22,3 +22,5 @@ export const margin = {
   tabletQuarter: `${(BASE / 4) * 2}px`,
   desktopQuarter: `${(BASE / 4) * 3}px`,
 };
+
+export const color = {};

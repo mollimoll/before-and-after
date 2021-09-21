@@ -1,72 +1,89 @@
 import styled from 'styled-components';
 
+import stepOne from '../images/step-1.gif';
+import stepTwo from '../images/step-2.gif';
+import stepThree from '../images/step-3.gif';
+import stepFour from '../images/step-4.gif';
+
+import { margin } from '../styles';
+
 const Paragraph = styled.p`
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  line-height: 1.5;
+  padding: 0 0 ${margin.tablet} 0;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  padding: ${margin.tablet} 0;
+`;
+
+const Header3 = styled.h3`
   text-align: left;
 `;
 
-export const Page1HelpText = () => (
-  <ol>
-    <li>
-      To begin, drag and drop your images into the text area of the description
-      of a Github pull request.
-      <ul>
-        <li>
-          This will generate Markdown links to the images. Each will look
-          similar to this:
-          <ul>
-            <li>
-              <code>
-                ![googlelogo_color_272x92dp](https://user-images.githubusercontent.com/26528097/127917455-f91173aa-e5f3-4a2f-aa26-b480b4c13b50.png)
-              </code>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li>
-      Copy this list of images and paste them into the text box on this page.
-    </li>
-  </ol>
-);
+const Header2 = styled.h1`
+  padding: 0 0 ${margin.tabletDouble} 0;
+  margin: 0;
+`;
 
 export const HowTo = () => (
-  <Paragraph>
-    How to add images in the tool:
-    <ol>
-      <li>To begin, open a pull request or edit a markdown file in Github.</li>
-      <li>
-        In the description of the pull request, drag and drop your images into
-        the text area.
-        <ul>
-          <li>This will generate Markdown links to the images.</li>
-          <li>
-            Each will look similar to this:
-            <ul>
-              <li>
-                <code>
-                  ![googlelogo_color_272x92dp](https://user-images.githubusercontent.com/26528097/127917455-f91173aa-e5f3-4a2f-aa26-b480b4c13b50.png)
-                </code>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        Copy this list of images and paste them into the left text box on this
-        tool.
-      </li>
-      <li>
-        After the images have appeared on the left, drag and drop them into the
-        appropriate spots in the table.
-      </li>
-      <li>When finished, click the Export Markdown button.</li>
-      <li>
-        Copy all of the text in the right text box, and paste it into your PR.
-      </li>
-      <li>
-        To confirm the appearance of your table, click the Preview tab on
-        Github.
-      </li>
-    </ol>
-  </Paragraph>
+  <>
+    <Header2>How to use the Markdown Table Generator</Header2>
+    <Paragraph>
+      I designed this tool to make it easier to share before and after
+      screenshots easier on GitHub.
+    </Paragraph>
+    <Paragraph>
+      Upload images to GitHub -&gt; Copy image links from GitHub -&gt; Upload
+      here -&gt; Arrange images in table -&gt; Export Markdown -&gt; Paste
+      Markdown into Github
+    </Paragraph>
+    <Header3>Step 1: Fetch image markdown</Header3>
+    <Paragraph>
+      <ol>
+        <li>Open a pull request in a GitHub repository.</li>
+        <li>Drag and drop your images into the text area.</li>
+        <li>Copy the image markdown from the text area.</li>
+      </ol>
+      <Img src={stepOne} alt="" />
+    </Paragraph>
+    <Header3>Step 2: Paste the image markdown</Header3>
+    <Paragraph>
+      <ol>
+        <li>
+          Paste the image markdown into the textarea of the first page of the
+          Markdown Table Generator
+        </li>
+        <li>Click Create Table &#128073;</li>
+      </ol>
+      <Img src={stepTwo} alt="" />
+    </Paragraph>
+    <Header3>Step 3: Arrange the table</Header3>
+    <Paragraph>
+      <ol>
+        <li>Drag and drop images into the before and after cells</li>
+        <li>Add additional rows if necessary</li>
+        <li>
+          Name each row (optional) and click corresponding save button:
+          &#128190;
+        </li>
+        <li>Click Export Markdown &#128073;</li>
+      </ol>
+      <Img src={stepThree} alt="" />
+    </Paragraph>
+    <Header3>Step 4: Copy and paste the markdown to GitHub</Header3>
+    <Paragraph>
+      <ol>
+        <li>Copy all text in the textarea of the last page</li>
+        <li>Paste the text into a GitHub PR</li>
+        <li>Click Preview to see the formatted table</li>
+      </ol>
+      <Img src={stepFour} alt="" />
+    </Paragraph>
+    <Header3>Viola!</Header3>
+  </>
 );

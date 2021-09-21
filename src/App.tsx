@@ -18,6 +18,7 @@ import {
 } from './utils/constants';
 import { extractNamesAndUrls, ImageData } from './utils/parsing';
 import { createMarkdownTable } from './utils/table';
+import { Overlay } from './components/Overlay';
 
 const BodyContainer = styled.div`
   display: block;
@@ -105,6 +106,7 @@ const App = () => {
   const [images, setImages] = useState([] as ImageData[]);
   const [output, setOutput] = useState('');
   const [page, setPage] = useState(1);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setImages(extractNamesAndUrls(e.target.value));
@@ -116,9 +118,11 @@ const App = () => {
   return (
     <div className="App">
       <BodyContainer>
+        {showOverlay && <Overlay closeOverlay={() => setShowOverlay(false)} />}
         <Row>
           <Col>
             <h1>Markdown Table Generator</h1>
+            <p onClick={() => setShowOverlay(true)}>How does this work?</p>
           </Col>
         </Row>
         {page === 1 ? (
@@ -135,7 +139,7 @@ const App = () => {
             <Row>
               <Col>
                 <Input
-                  placeholder="Paste Github image links here"
+                  placeholder="Paste GitHub image links here"
                   onChange={handleInput}
                 />
                 {!!images.length && (
@@ -190,6 +194,8 @@ const App = () => {
                 <Button
                   handleClick={() => {
                     dispatch({ type: RESET });
+                    setImages([]);
+                    setOutput('');
                     setPage(1);
                   }}
                 >
